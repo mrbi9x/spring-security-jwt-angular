@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.Email;
@@ -28,6 +29,7 @@ import lombok.Data;
 @Data
 public class UserEntity {
     @Id
+    @SequenceGenerator(initialValue = 10000000, name = "USER_SEQ")
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
     @NotBlank

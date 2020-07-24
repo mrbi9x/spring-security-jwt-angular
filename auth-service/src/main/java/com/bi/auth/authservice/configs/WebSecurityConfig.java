@@ -43,7 +43,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authenticationEntryPoint((req, resp, e) -> resp.sendError(HttpServletResponse.SC_UNAUTHORIZED)) //
                 .and() //
                 .addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
-                .authorizeRequests() //
+                .authorizeRequests()//
                 .antMatchers(HttpMethod.POST, "/signin").permitAll() //
                 .antMatchers(HttpMethod.POST, "/signup").permitAll() //
                 .antMatchers(HttpMethod.POST, "/facebook/signin").permitAll() //
@@ -51,6 +51,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.GET, "/").permitAll() //
                 .antMatchers("/h2-console/**").permitAll() // TODO remove
                 .anyRequest().authenticated();
+        http.headers().frameOptions().disable();
     }
 
     @Bean
