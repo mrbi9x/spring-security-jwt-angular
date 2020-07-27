@@ -11,6 +11,7 @@ import com.bi.auth.authservice.securities.JwtConfig;
 import com.bi.auth.authservice.services.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -38,7 +39,7 @@ public class AuthController {
 		newUser.setEmail(signupRequest.getEmail());
 		newUser.setPassword(signupRequest.getPassword());
 		newUser = userService.createUser(newUser);
-		return ResponseEntity.ok(ApiResponse.builder().success(true).message("Created user success.").build());
+		return ResponseEntity.status(HttpStatus.CREATED).body(ApiResponse.builder().success(true).message("Created user success.").build());
 	}
 
 }
