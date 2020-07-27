@@ -1,8 +1,6 @@
 package com.bi.auth.authservice.payloads;
 
-import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
 
 import lombok.Builder;
 import lombok.Data;
@@ -12,13 +10,13 @@ import lombok.Data;
 public class SignupRequest {
 
 	@NotBlank
-	@Size(min = 6, max = 50)
+	// @Size(min = 6, max = 50)
 	private String username;
-	@Email
+	// @Email
 	@NotBlank
-	@Size(max = 50)
+	// @Size(max = 50)
 	private String email;
 	@NotBlank
-	@Size(min = 6, max = 50)
+	// @Size(min = 6, max = 50)
 	private String password;
 }
