@@ -10,4 +10,8 @@ import com.bi.auth.authservice.entities.UserEntity;
 @Repository
 public interface UserRepository extends JpaRepository<UserEntity, Long> {
 	Optional<UserEntity> findByUsername(String username);
+
+	boolean existsByUsername(String username);
+
+	boolean existsByEmail(String email);
 }

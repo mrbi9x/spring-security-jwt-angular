@@ -10,4 +10,6 @@ public interface UserService {
 	Optional<UserEntity> getUserById(Long id);
 
 	String loginUser(String username, String password);
+
+	UserEntity createUser(UserEntity userEntity);
 }
