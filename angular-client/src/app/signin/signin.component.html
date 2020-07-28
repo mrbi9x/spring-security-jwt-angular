@@ -1,0 +1,47 @@
+<div class="signin container">
+  <form #form class="row justify-content-md-center" name="signinForm" novalidate [formGroup]="signinForm" (ngSubmit)="onSignin()">
+    <div class="col-8 col-md-8">
+      <div class="row col-8 offset-2">
+        <h3>Signin</h3>
+      </div>
+      <div class="form-group row">
+        <label for="txtPassword" class="col-2 col-form-label">Username: </label>
+        <div class="col-8">
+          <input #username type="text" id="txtUsername" name="username" class="form-control" formControlName="username" required />
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="txtPassword" class="col-2 col-form-label">Password: </label>
+        <div class="col-8">
+          <input #password formControlName="password" name="password" type="password" id="txtPassword" class="form-control" required />
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col-8 offset-2">
+          <button class="btn btn-primary col-3" type="submit" [disabled]="signinForm.invalid && !signinForm.untouched">
+            Signin
+          </button>
+        </div>
+      </div>
+      <div class="col alert alert-danger" role="alert" *ngIf="signinForm.invalid && !signinForm.untouched">
+        <span class="row" *ngIf="
+            signinForm.controls.username?.hasError('required')
+          ">Username is required!</span>
+        <span class="row" *ngIf="
+            signinForm.controls.username?.hasError('minlength') || signinForm.controls.username?.hasError('maxLength')">
+          Username must be greater than 4 and lesser than 50!
+        </span>
+        <span class=" row" *ngIf="signinForm.controls.password?.errors?.required
+          ">Password is required!</span>
+        <span class="row" *ngIf="
+            signinForm.controls.password?.hasError('minlength')">
+          Password must be greater than 6!
+        </span>
+      </div>
+    </div>
+  </form>
+  <!-- <pre>{{ signinForm.value | json }}</pre>
+  <pre>username: {{ signinForm.controls.username?.errors | json }}</pre>
+  <pre>password: {{ signinForm.controls.password?.errors | json }}</pre> -->
+</div>

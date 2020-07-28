@@ -12,7 +12,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "roles")
-public class RoleEntity {
+public class RoleEntity extends DateAudit {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private Long id;
@@ -62,7 +62,9 @@ public class RoleEntity {
 
 	@Override
 	public String toString() {
-		return "RoleEntity [id=" + id + ", name=" + name + "]";
+		return "RoleEntity [id=" + id + ", name=" + name + ", getCreatedAt()=" + getCreatedAt() + ", getUpdatedAt()="
+				+ getUpdatedAt() + ", getCreateAtTimestamp()=" + getCreateAtTimestamp() + ", getUpdateAtTimestamp()="
+				+ getUpdateAtTimestamp() + "]";
 	}
 
 }

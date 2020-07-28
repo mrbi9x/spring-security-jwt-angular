@@ -1,7 +1,8 @@
 package com.bi.auth.authservice.entities;
 
-import java.util.Collection;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -22,7 +23,7 @@ import lombok.EqualsAndHashCode;
 
 @Entity
 @Table(name = "users", uniqueConstraints = @UniqueConstraint(columnNames = { "username", "email" }))
-public class UserEntity {
+public class UserEntity extends DateAudit {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -41,17 +42,17 @@ public class UserEntity {
 	@Column(name = "password", nullable = false)
 	private String password;
 
-	@ManyToMany(fetch = FetchType.LAZY)
+	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
 	@Size(min = 1, max = 5)
 	@EqualsAndHashCode.Exclude
-	private Collection<RoleEntity> roles;
+	private Set<RoleEntity> roles = new HashSet<>();
 
 	public UserEntity() {
 	}
 
 	public UserEntity(Long id, @NotBlank String username, @NotBlank @Email String email, @NotBlank String password,
-			@Size(min = 1, max = 5) Collection<RoleEntity> roles) {
+			@Size(min = 1, max = 5) Set<RoleEntity> roles) {
 		super();
 		this.id = id;
 		this.username = username;
@@ -92,11 +93,11 @@ public class UserEntity {
 		this.password = password;
 	}
 
-	public Collection<RoleEntity> getRoles() {
+	public Set<RoleEntity> getRoles() {
 		return roles;
 	}
 
-	public void setRoles(Collection<RoleEntity> roles) {
+	public void setRoles(Set<RoleEntity> roles) {
 		this.roles = roles;
 	}
 
@@ -118,7 +119,9 @@ public class UserEntity {
 	@Override
 	public String toString() {
 		return "UserEntity [id=" + id + ", username=" + username + ", email=" + email + ", password=" + password
-				+ ", roles=" + roles + "]";
+				+ ", roles=" + roles + ", getCreatedAt()=" + getCreatedAt() + ", getUpdatedAt()=" + getUpdatedAt()
+				+ ", getCreateAtTimestamp()=" + getCreateAtTimestamp() + ", getUpdateAtTimestamp()="
+				+ getUpdateAtTimestamp() + "]";
 	}
 
 }
