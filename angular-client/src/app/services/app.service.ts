@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { LoginRequest } from '../dtos/login-request';
+import { SigninRequest } from '../dtos/signin-request';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable({
@@ -7,9 +7,9 @@ import { HttpClient } from '@angular/common/http';
 })
 export class AppService {
   BASE_URL = 'http://localhost:8080';
-  constructor(private httpClient: HttpClient) {}
+  constructor(private httpClient: HttpClient) { }
 
-  doSignin(loginRequest: LoginRequest) {
-    return this.httpClient.post(this.BASE_URL + '/signin', loginRequest);
+  doSignin(SigninRequest: SigninRequest) {
+    return this.httpClient.post(this.BASE_URL + '/signin', SigninRequest);
   }
 }

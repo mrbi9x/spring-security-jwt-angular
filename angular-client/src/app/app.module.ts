@@ -7,9 +7,15 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { SigninComponent } from './signin/signin.component';
+import { SignupComponent } from './signup/signup.component';
+import { HomeComponent } from './home/home.component';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 @NgModule({
-  declarations: [AppComponent, SigninComponent],
+  declarations: [
+    AppComponent, 
+    SigninComponent, 
+    SignupComponent, HomeComponent, NotFoundComponent],
   imports: [
     BrowserModule,
     HttpClientModule,

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AppService } from '../services/app.service';
-import { LoginRequest } from '../dtos/login-request';
+import { SigninRequest } from '../dtos/signin-request';
 import { TokenResponse } from '../dtos/token-response';
 
 @Component({
@@ -12,7 +12,7 @@ import { TokenResponse } from '../dtos/token-response';
 export class SigninComponent implements OnInit {
   signinForm: FormGroup;
 
-  constructor(private appService: AppService) {}
+  constructor(private appService: AppService) { }
 
   ngOnInit(): void {
     this.signinForm = new FormGroup({
@@ -34,7 +34,7 @@ export class SigninComponent implements OnInit {
       this.signinForm.updateValueAndValidity();
       return;
     }
-    const loginReq: LoginRequest = {
+    const loginReq: SigninRequest = {
       username: this.signinForm.controls.username.value,
       password: this.signinForm.controls.password.value,
     };

@@ -25,14 +25,14 @@ public class AuthController {
 	@Autowired
 	private JwtConfig jwtConfig;
 
-	@PostMapping("/signin")
+	@PostMapping("/auth/signin")
 	public ResponseEntity<?> authenticateUser(@Valid @RequestBody SigninRequest signinRequest) {
 		String token = userService.loginUser(signinRequest.getUsername(), signinRequest.getPassword());
 		return ResponseEntity
 				.ok(JwtAuthenticationResponse.builder().accessToken(token).tokenType(jwtConfig.getPrefix()).build());
 	}
 
-	@PostMapping("/signup")
+	@PostMapping("/auth/signup")
 	public ResponseEntity<?> createUser(@Valid @RequestBody SignupRequest signupRequest) {
 		UserEntity newUser = new UserEntity();
 		newUser.setUsername(signupRequest.getUsername());

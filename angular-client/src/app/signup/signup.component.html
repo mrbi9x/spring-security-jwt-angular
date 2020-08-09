@@ -1,0 +1,78 @@
+<div class="signup container">
+  <form #form class="row justify-content-md-center" name="signupForm" novalidate [formGroup]="signupForm"
+    (ngSubmit)="onSignup()">
+    <div class="col-8 col-md-8">
+      <div class="row col-8 offset-2">
+        <h3>Signup</h3>
+      </div>
+      <div class="form-group row">
+        <label for="txtUsername" class="col-4 col-form-label">Username: <span style="color: red;">*</span></label>
+        <div class="col-8">
+          <input #username type="text" id="txtUsername" name="username" class="form-control" formControlName="username"
+            required />
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="txtEmail" class="col-4 col-form-label">Email: <span style="color: red;">*</span></label>
+        <div class="col-8">
+          <input #username type="text" id="txtEmail" name="email" class="form-control" formControlName="email"
+            required />
+        </div>
+      </div>
+
+      <div class="form-group" formGroupName="passwordConfirmGroup">
+        <div class="form-group row">
+          <label for="txtPassword" class="col-4 col-form-label">Password: <span style="color: red;">*</span></label>
+          <div class="col-8">
+            <input #password formControlName="password" name="password" type="password" id="txtPassword"
+              class="form-control" required />
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="txtPasswordConfirm" class="col-4 col-form-label">Password confirm: <span
+              style="color: red;">*</span></label>
+          <div class="col-8">
+            <input #password formControlName="passwordConfirm" name="passwordConfirm" type="password"
+              id="txtPasswordConfirm" class="form-control" required />
+          </div>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col-6 offset-3">
+          <button class="btn btn-primary col-6" type="submit" [disabled]="signupForm.invalid && !signupForm.untouched">
+            Signup
+          </button>
+        </div>
+      </div>
+      <hr>
+      <div class="form-group row">
+        <div class="col-6 offset-3">
+          <i>Already have account?</i>
+          <button class="btn btn-link" type="button" [routerLink]="['/signin']" routerLinkActive="router-link-active">
+            Signin
+          </button>
+        </div>
+      </div>
+      <!-- <div class="col alert alert-danger" role="alert" *ngIf="signupForm.invalid && !signupForm.untouched">
+        <span class="row" *ngIf="
+              signupForm.controls.username?.hasError('required')
+            ">Username is required!</span>
+        <span class="row"
+          *ngIf="
+              signupForm.controls.username?.hasError('minlength') || signupForm.controls.username?.hasError('maxLength')">
+          Username must be greater than 4 and lesser than 50!
+        </span>
+        <span class=" row" *ngIf="signupForm.controls.password?.errors?.required
+            ">Password is required!</span>
+        <span class="row" *ngIf="
+              signupForm.controls.password?.hasError('minlength')">
+          Password must be greater than 6!
+        </span>
+      </div> -->
+    </div>
+  </form>
+  <!-- <pre>{{ signupForm.value | json }}</pre>
+    <pre>username: {{ signupForm.controls.username?.errors | json }}</pre>
+    <pre>password: {{ signupForm.controls.password?.errors | json }}</pre> -->
+</div>
