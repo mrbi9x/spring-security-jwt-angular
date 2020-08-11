@@ -1,23 +1,33 @@
 <div class="signup container">
-  <form #form class="row justify-content-md-center" name="signupForm" novalidate [formGroup]="signupForm"
+  <form class="row justify-content-md-center" name="signupForm" novalidate [formGroup]="signupForm"
     (ngSubmit)="onSignup()">
     <div class="col-8 col-md-8">
-      <div class="row col-8 offset-2">
-        <h3>Signup</h3>
+      <div class="row col-6 offset-3">
+        <h2>Signup</h2>
       </div>
       <div class="form-group row">
         <label for="txtUsername" class="col-4 col-form-label">Username: <span style="color: red;">*</span></label>
         <div class="col-8">
-          <input #username type="text" id="txtUsername" name="username" class="form-control" formControlName="username"
+          <input type="text" id="txtUsername" name="username" class="form-control invalid" formControlName="username"
             required />
+          <ng-template [ngIf]="username.invalid && (username.dirty || username.touched)">
+            <small *ngIf="username.errors.required" class="form-text text-mute">Username is required</small>
+            <small *ngIf="username.errors.minlength" class="form-text text-mute">Username must greater than 4
+              charracter</small>
+            <small *ngIf="username.errors.maxlength" class="form-text text-mute">Username less than 50
+              charracter</small>
+          </ng-template>
         </div>
       </div>
 
       <div class="form-group row">
         <label for="txtEmail" class="col-4 col-form-label">Email: <span style="color: red;">*</span></label>
         <div class="col-8">
-          <input #username type="text" id="txtEmail" name="email" class="form-control" formControlName="email"
-            required />
+          <input type="text" id="txtEmail" name="email" class="form-control" formControlName="email" required />
+          <ng-template [ngIf]="email.invalid && (email.dirty || email.touched)">
+            <small *ngIf="email.errors.required" class="form-text text-mute">Email is required</small>
+            <small *ngIf="email.errors.email" class="form-text text-mute">Email not correct</small>
+          </ng-template>
         </div>
       </div>
 
@@ -25,22 +35,40 @@
         <div class="form-group row">
           <label for="txtPassword" class="col-4 col-form-label">Password: <span style="color: red;">*</span></label>
           <div class="col-8">
-            <input #password formControlName="password" name="password" type="password" id="txtPassword"
-              class="form-control" required />
+            <input formControlName="password" name="password" type="password" id="txtPassword" class="form-control"
+              required />
+            <ng-template [ngIf]="password.invalid && (password.dirty || password.touched)">
+              <small *ngIf="password.errors.required" class="form-text text-mute">Password is required</small>
+              <small *ngIf="password.errors.minlength" class="form-text text-mute">Password must greater than 6
+                charracter</small>
+              <small *ngIf="password.errors.maxlength" class="form-text text-mute">Password less than 255
+                charracter</small>
+            </ng-template>
           </div>
         </div>
         <div class="form-group row">
           <label for="txtPasswordConfirm" class="col-4 col-form-label">Password confirm: <span
               style="color: red;">*</span></label>
           <div class="col-8">
-            <input #password formControlName="passwordConfirm" name="passwordConfirm" type="password"
-              id="txtPasswordConfirm" class="form-control" required />
+            <input formControlName="passwordConfirm" name="passwordConfirm" type="password" id="txtPasswordConfirm"
+              class="form-control" required />
+            <ng-template [ngIf]="passwordConfirm?.invalid && (passwordConfirm.dirty || passwordConfirm.touched)">
+              <small *ngIf="passwordConfirm.errors.required" class="form-text text-mute">Password confirm is
+                required</small>
+              <small *ngIf="passwordConfirm.errors.minlength" class="form-text text-mute">Password confirm must greater
+                than 6
+                charracter</small>
+              <small *ngIf="passwordConfirm.errors.maxlength" class="form-text text-mute">Password confirm less than 255
+                charracter</small>
+            </ng-template>
+            <small *ngIf="passwordConfirm.dirty && signupForm.get('passwordConfirmGroup').errors?.passwordNotMatch"
+              class="form-text text-mute">Password confirm not match</small>
           </div>
         </div>
       </div>
       <div class="form-group row">
         <div class="col-6 offset-3">
-          <button class="btn btn-primary col-6" type="submit" [disabled]="signupForm.invalid && !signupForm.untouched">
+          <button class="btn btn-primary col-6" type="submit" [disabled]="signupForm.invalid && signupForm.touched">
             Signup
           </button>
         </div>
@@ -54,25 +82,10 @@
           </button>
         </div>
       </div>
-      <!-- <div class="col alert alert-danger" role="alert" *ngIf="signupForm.invalid && !signupForm.untouched">
-        <span class="row" *ngIf="
-              signupForm.controls.username?.hasError('required')
-            ">Username is required!</span>
-        <span class="row"
-          *ngIf="
-              signupForm.controls.username?.hasError('minlength') || signupForm.controls.username?.hasError('maxLength')">
-          Username must be greater than 4 and lesser than 50!
-        </span>
-        <span class=" row" *ngIf="signupForm.controls.password?.errors?.required
-            ">Password is required!</span>
-        <span class="row" *ngIf="
-              signupForm.controls.password?.hasError('minlength')">
-          Password must be greater than 6!
-        </span>
-      </div> -->
+
     </div>
   </form>
-  <!-- <pre>{{ signupForm.value | json }}</pre>
-    <pre>username: {{ signupForm.controls.username?.errors | json }}</pre>
-    <pre>password: {{ signupForm.controls.password?.errors | json }}</pre> -->
+  <pre>Form values: {{ signupForm.value | json }}</pre>
+  <pre>Form status: {{ signupForm.status | json}}</pre>
+  <pre>Form errors: {{ signupForm.get('passwordConfirmGroup')?.errors | json}}</pre>
 </div>

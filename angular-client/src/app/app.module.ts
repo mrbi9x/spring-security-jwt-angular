@@ -13,8 +13,8 @@ import { NotFoundComponent } from './not-found/not-found.component';
 
 @NgModule({
   declarations: [
-    AppComponent, 
-    SigninComponent, 
+    AppComponent,
+    SigninComponent,
     SignupComponent, HomeComponent, NotFoundComponent],
   imports: [
     BrowserModule,
@@ -26,4 +26,4 @@ import { NotFoundComponent } from './not-found/not-found.component';
   providers: [],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators, AbstractControl, ValidatorFn, ValidationErrors } from '@angular/forms';
+import { FormGroup, Validators, AbstractControl, ValidatorFn, ValidationErrors, FormBuilder } from '@angular/forms';
+import { SignupRequest } from '../dtos/signup-request';
 
 @Component({
   selector: 'app-signup',
@@ -9,45 +10,85 @@ import { FormGroup, FormControl, Validators, AbstractControl, ValidatorFn, Valid
 export class SignupComponent implements OnInit {
 
   signupForm: FormGroup;
+  signupRequest: SignupRequest;
 
-  constructor() { }
+  constructor(private fb: FormBuilder) {
+    // this.signupRequest = {
+    //   username: '',
+    //   email: '',
+    //   password: '',
+    //   passwordConfirm: ''
+    // };
+    this.createSignupForm();
+  }
 
   ngOnInit(): void {
-    this.signupForm = new FormGroup({
-      username: new FormControl('', [
+  }
+
+  get username() {
+    return this.signupForm?.get('username');
+  }
+  get email() {
+    return this.signupForm?.get('email');
+  }
+  get password() {
+    return this.signupForm?.get('passwordConfirmGroup.password');
+  }
+  get passwordConfirm() {
+    return this.signupForm?.get('passwordConfirmGroup.passwordConfirm');
+  }
+
+  private createSignupForm() {
+    this.signupForm = this.fb.group({
+      username: ['', [
         Validators.required,
         Validators.minLength(4),
         Validators.maxLength(50),
-        Validators.pattern('[a-zA-Z0-9._]')
-      ]),
-      email: new FormControl('', [
-        Validators.required,
-        Validators.email
-      ]),
-      passwordConfirmGroup: new FormGroup({
-        password: new FormControl('', [
+      ]],
+      email: ['', {
+        updateOn: 'blur', validators: [
           Validators.required,
-          Validators.minLength(6),
-          Validators.maxLength(255)
-        ]),
-        passwordConfirm: new FormControl('', [
-          Validators.required,
-          Validators.minLength(6),
-          Validators.maxLength(255),
-        ])
-      }, { validators: this.passwordConfirmValidator }),
+          Validators.email
+        ]
+      }],
+      passwordConfirmGroup: this.fb.group({
+        password: ['', {
+          validators: [
+            Validators.required,
+            Validators.minLength(6),
+            Validators.maxLength(255)
+          ]
+        }],
+        passwordConfirm: ['', {
+          updateOn: 'blur', validators: [
+            Validators.required,
+            Validators.minLength(6),
+            Validators.maxLength(255),
+            // this.passwordConfirmValidator
+          ]
+        }]
+      }, { validators: [this.passwordConfirmValidator] }),
     });
   }
 
   onSignup() {
+    if (this.signupForm.invalid) {
+      return;
+    }
     console.log('On Signup');
-    // TODO
+    this.signupRequest = {
+      username: this.username.value,
+      email: this.email.value,
+      password: this.password.value,
+      passwordConfirm: this.passwordConfirm.value
+    }
+    console.log(this.signupRequest)
   }
 
-  passwordConfirmValidator: ValidatorFn = (ac: AbstractControl): ValidationErrors | null => {
-    let pass = ac.get('password');
-    let passConfirm = ac.get('passwordConfirm');
-    return pass && passConfirm && pass === passConfirm ? null : { passwordMatch: false };
+  passwordConfirmValidator: ValidatorFn = (formGroup: FormGroup): ValidationErrors | null => {
+    let pass = formGroup.get('password');
+    let passConfirm = formGroup.get('passwordConfirm');
+    return pass && passConfirm && pass.value === passConfirm.value ? null : { passwordNotMatch: true };
   }
 
 }
