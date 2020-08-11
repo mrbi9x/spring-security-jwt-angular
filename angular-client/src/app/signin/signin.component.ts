@@ -40,6 +40,7 @@ export class SigninComponent implements OnInit {
     };
     this.appService.doSignin(loginReq).subscribe((data: TokenResponse) => {
       console.log(data);
-    });
+    },
+      errors => console.log(errors));
   }
 }

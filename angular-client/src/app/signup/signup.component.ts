@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, AbstractControl, ValidatorFn, ValidationErrors, FormBuilder } from '@angular/forms';
 import { SignupRequest } from '../dtos/signup-request';
+import { AppService } from '../services/app.service';
 
 @Component({
   selector: 'app-signup',
@@ -12,7 +13,7 @@ export class SignupComponent implements OnInit {
   signupForm: FormGroup;
   signupRequest: SignupRequest;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private appService: AppService, private fb: FormBuilder) {
     // this.signupRequest = {
     //   username: '',
     //   email: '',
@@ -64,7 +65,6 @@ export class SignupComponent implements OnInit {
             Validators.required,
             Validators.minLength(6),
             Validators.maxLength(255),
-            // this.passwordConfirmValidator
           ]
         }]
       }, { validators: [this.passwordConfirmValidator] }),
@@ -83,6 +83,10 @@ export class SignupComponent implements OnInit {
       passwordConfirm: this.passwordConfirm.value
     }
     console.log(this.signupRequest)
+    this.appService.doSignup(this.signupRequest).subscribe(res => {
+      console.log(res);
+    },
+      errors => console.log(errors))
   }
 
   passwordConfirmValidator: ValidatorFn = (formGroup: FormGroup): ValidationErrors | null => {
