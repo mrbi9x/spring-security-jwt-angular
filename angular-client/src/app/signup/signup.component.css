@@ -1,8 +1,9 @@
 input {
-    border: 0 0 1 0;
+  border: 0 0 1 0;
 }
 input.ng-touched.ng-invalid {
-    border-color: red;
-    border-left-style: double;
-    border-style: solid;
+  border-color: red;
+  border-left-style: double;
+  border-style: solid;
+  outline-color: red;
 }

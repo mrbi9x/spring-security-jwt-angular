@@ -4,25 +4,29 @@ import { HomeComponent } from './home/home.component';
 import { SigninComponent } from './signin/signin.component';
 import { SignupComponent } from './signup/signup.component';
 
-
 const routes: Routes = [
   {
     path: '',
     component: HomeComponent,
-    pathMatch: 'full'
+    pathMatch: 'full',
   },
   {
     path: 'signin',
-    component: SigninComponent
+    component: SigninComponent,
   },
   {
     path: 'signup',
-    component: SignupComponent
-  }
+    component: SignupComponent,
+  },
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  imports: [
+    RouterModule.forRoot(routes, {
+      useHash: true,
+      onSameUrlNavigation: 'reload',
+    }),
+  ],
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

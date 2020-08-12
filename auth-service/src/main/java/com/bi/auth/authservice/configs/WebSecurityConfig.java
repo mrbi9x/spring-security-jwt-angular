@@ -47,10 +47,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.authorizeRequests()//
 				.antMatchers(HttpMethod.POST, "/auth/signin").permitAll() //
 				.antMatchers(HttpMethod.POST, "/auth/signup").permitAll() //
-				.antMatchers(HttpMethod.POST, "/facebook/signin").permitAll() //
-				.antMatchers(HttpMethod.POST, "/google/signin").permitAll() //
+				.antMatchers(HttpMethod.POST, "/auth/facebook/signin").permitAll() //
+				.antMatchers(HttpMethod.POST, "/auth/google/signin").permitAll() //
 				.antMatchers(HttpMethod.GET, "/").permitAll() //
 				.antMatchers("/h2/**").permitAll() // TODO remove
+				.antMatchers("/**.js").permitAll() // TODO remove
+				.antMatchers("/**.css").permitAll() // TODO remove
+				.antMatchers("/**.ico").permitAll() // TODO remove
+				.antMatchers("/**.jpg").permitAll() // TODO remove
+				.antMatchers("/**.png").permitAll() // TODO remove
 				.anyRequest().authenticated();
 		http.headers().frameOptions().disable();
 	}

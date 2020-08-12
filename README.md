@@ -1,3 +1,3 @@
-# springboot-oauth-angular
-Spring Boot, Spring security, Spring oauth, Angular Client
+# springboot-security-jwt-angular
 
+Spring Boot, Spring security, Angular Client
